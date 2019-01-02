@@ -18,8 +18,6 @@ class Rule:
       self.transitions = []
       for x in range(9):
         self.transitions.append(random.choice(range(definition['rule_amount'])))
-    else:
-      if self.rule_amount != None: raise ValueError('Passed both randomize integer and preset transitions.')
 
     if self.colour == None:
       self.colour = {}
@@ -126,6 +124,7 @@ class Game:
   
   def output(self,file):
     json_dict = {}
+    json_dict['ticks'] = self.ticks
     json_dict['rules'] = []
     for x in self.rules.rules:
       json_dict['rules'].append(vars(x))
@@ -133,3 +132,16 @@ class Game:
 
     with open(file,'w') as outfile:
       json.dump(json_dict, outfile)
+
+def load_game(file):
+  with open(file,'r') as infile:
+    json_game = json.load(infile)
+  grid = Grid(definition=json_game['grid'])
+  rules = []
+  for rule in json_game['rules']:
+    rules.append(Rule(definition=rule))
+  ruleset = Rules(definition={'rules': rules})
+  g = Game(rules=ruleset,grid=grid)
+  g.ticks = json_game.get('ticks',0)
+
+  return g

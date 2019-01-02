@@ -1,4 +1,6 @@
 import gol
+import copy
+from datetime import datetime
 
 for y in range(1000):
   rules = gol.Rules({'randomize': 3})
@@ -8,9 +10,14 @@ for y in range(1000):
   g = gol.Game(rules=rules,grid=grid)
 
   g.random_grid()
+  g_start = copy.deepcopy(g)
+  grid_state = g.grid.state
 
-  for x in range(100):
+  for x in range(1000):
     g.tick()
-    g.show()
+    if g.grid.state == grid_state: 
+      g_start.output('games/game_{}_{}.json'.format(g.ticks,datetime.now().isoformat()))
+      break
+    grid_state = g.grid.state
 
-  g.output('game.json')
+  g.output('games/game.json')

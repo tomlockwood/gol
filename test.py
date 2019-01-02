@@ -105,10 +105,6 @@ class TestRuleCreation(unittest.TestCase):
   def test_random_rule(self):
     self.r = gol.Rule({'rule_amount': 3})
     self.assertTrue(max(self.r.transitions) < 3)
-  
-  def test_error_on_dual_pass(self):
-    with self.assertRaises(ValueError):
-      self.r = gol.Rule({'rule_amount': 2, 'transitions': [1]})
 
 class TestRulesCreation(unittest.TestCase):
   
