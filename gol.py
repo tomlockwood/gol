@@ -107,9 +107,6 @@ class Game:
     TEXT = '\033[38;2;'
     COLOUR_TEXT = "{r};{g};{b}m"
     WHITE_TEXT = TEXT + '255;255;255m'
-    RED_TEXT = TEXT + '255;0;0m'
-    GREEN_TEXT = TEXT + '0;255;0m'
-    BLUE_TEXT = TEXT + '0;0;255m'
 
     print(chr(27) + "[2J")
     print (WHITE_TEXT + 'At tick number ' + str(self.ticks))
@@ -133,14 +130,26 @@ class Game:
     with open(file,'w') as outfile:
       json.dump(json_dict, outfile)
 
-def load_game(file):
-  with open(file,'r') as infile:
-    json_game = json.load(infile)
-  grid = Grid(definition=json_game['grid'])
+def load_rules(file=None,json_game=None):
+  if file != None:
+    with open(file,'r') as infile:
+      json_game = json.load(infile)
   rules = []
   for rule in json_game['rules']:
     rules.append(Rule(definition=rule))
-  ruleset = Rules(definition={'rules': rules})
+  return Rules(definition={'rules': rules})
+
+def load_grid(file=None,json_game=None):
+  if file != None:
+    with open(file,'r') as infile:
+      json_game = json.load(infile)
+  return Grid(definition=json_game['grid'])
+
+def load_game(file):
+  with open(file,'r') as infile:
+    json_game = json.load(infile)
+  grid = load_grid(json_game=json_game)
+  ruleset = load_rules(json_game=json_game)
   g = Game(rules=ruleset,grid=grid)
   g.ticks = json_game.get('ticks',0)
 
