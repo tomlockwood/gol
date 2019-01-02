@@ -1,5 +1,6 @@
 import random
 import time
+import json
 
 class Rule:
   def __init__(self,definition={}):
@@ -113,3 +114,13 @@ class Game:
           text_colour = BLUE_TEXT
         print(text_colour + str(y), end='')
     print()
+  
+  def output(self,file):
+    json_dict = {}
+    json_dict['rules'] = []
+    for x in self.rules.rules:
+      json_dict['rules'].append(vars(x))
+    json_dict['grid'] = vars(self.grid)
+
+    with open(file,'w') as outfile:
+      json.dump(json_dict, outfile)
