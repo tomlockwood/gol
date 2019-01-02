@@ -1,4 +1,5 @@
 import gol
+import json
 
 rules = gol.Rules()
 
@@ -8,6 +9,10 @@ g = gol.Game(rules=rules,grid=grid)
 
 g.random_grid()
 
-for x in range(50):
+for x in range(10):
   g.tick()
   g.show()
+
+print(json.dumps(vars(grid)))
+for x in rules.rules:
+  print(json.dumps(vars(x)))

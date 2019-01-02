@@ -3,7 +3,6 @@ import time
 
 class Rule:
   def __init__(self,definition={}):
-    self.definition = definition
     self.alive = definition.get('alive')
     self.rule_amount = definition.get('rule_amount')
     if self.alive == None:
@@ -44,7 +43,6 @@ class Rules:
 class Grid:
   def __init__(self,definition={}):
     self.state = []
-    self.definition = definition
     self.state = definition.get('state')
     if self.state == None:
       self.state = []
