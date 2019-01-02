@@ -13,6 +13,8 @@ g = gol.Game(rules=rules,grid=grid)
 
 g.random_grid()
 
-for x in range(50):
+for x in range(400):
   g.tick()
-  g.show()
+  g.show(0)
+
+g.output('game.json')
