@@ -6,16 +6,26 @@ class Rule:
   def __init__(self,definition={}):
     self.alive = definition.get('alive')
     self.rule_amount = definition.get('rule_amount')
+    self.colour = definition.get('colour')
+    self.transitions = definition.get('transitions')
+
+    # Set the alive status if it is ambiguous
     if self.alive == None:
       self.alive = random.choice([True,False])
 
-    self.transitions = []
-    if definition.get('transitions') == None:
+    # Set or generate transitions
+    if self.transitions == None:
+      self.transitions = []
       for x in range(9):
         self.transitions.append(random.choice(range(definition['rule_amount'])))
     else:
       if self.rule_amount != None: raise ValueError('Passed both randomize integer and preset transitions.')
-      self.transitions = definition['transitions']
+
+    if self.colour == None:
+      self.colour = {}
+      self.colour['r'] = str(random.randint(0,255))
+      self.colour['g'] = str(random.randint(0,255))
+      self.colour['b'] = str(random.randint(0,255))
       
 class Rules:
   def __init__(self,definition={}):
@@ -97,6 +107,7 @@ class Game:
 
   def show(self,wait=0.15):
     TEXT = '\033[38;2;'
+    COLOUR_TEXT = "{r};{g};{b}m"
     WHITE_TEXT = TEXT + '255;255;255m'
     RED_TEXT = TEXT + '255;0;0m'
     GREEN_TEXT = TEXT + '0;255;0m'
@@ -107,7 +118,10 @@ class Game:
     for x in range(self.grid.x):
       print()
       for y in self.grid.state[x]:
-        if self.rules.rules[y].alive:
+        colour = self.rules.rules[y].colour
+        if colour != None:
+          text_colour = TEXT + COLOUR_TEXT.format(**colour)
+        elif self.rules.rules[y].alive:
           text_colour = RED_TEXT
         else:
           text_colour = BLUE_TEXT
