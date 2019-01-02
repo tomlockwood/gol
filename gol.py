@@ -102,7 +102,6 @@ class Game:
     GREEN_TEXT = TEXT + '0;255;0m'
     BLUE_TEXT = TEXT + '0;0;255m'
 
-    time.sleep(wait)
     print(chr(27) + "[2J")
     print (WHITE_TEXT + 'At tick number ' + str(self.ticks))
     for x in range(self.grid.x):
@@ -114,6 +113,7 @@ class Game:
           text_colour = BLUE_TEXT
         print(text_colour + str(y), end='')
     print()
+    time.sleep(wait)
   
   def output(self,file):
     json_dict = {}
