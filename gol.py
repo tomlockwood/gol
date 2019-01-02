@@ -105,7 +105,7 @@ class Game:
     self.grid.state = self.next_state
     self.ticks += amount
 
-  def show(self,wait=0.15):
+  def show(self,wait=0.3):
     TEXT = '\033[38;2;'
     COLOUR_TEXT = "{r};{g};{b}m"
     WHITE_TEXT = TEXT + '255;255;255m'
@@ -119,12 +119,7 @@ class Game:
       print()
       for y in self.grid.state[x]:
         colour = self.rules.rules[y].colour
-        if colour != None:
-          text_colour = TEXT + COLOUR_TEXT.format(**colour)
-        elif self.rules.rules[y].alive:
-          text_colour = RED_TEXT
-        else:
-          text_colour = BLUE_TEXT
+        text_colour = TEXT + COLOUR_TEXT.format(**colour)
         print(text_colour + str(y), end='')
     print()
     time.sleep(wait)

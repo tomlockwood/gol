@@ -1,15 +1,16 @@
 import gol
 
-rules = gol.Rules()
+for y in range(1000):
+  rules = gol.Rules({'randomize': 3})
 
-grid = gol.Grid({'x': 50, 'y': 50})
+  grid = gol.Grid({'x': 25, 'y': 50})
 
-g = gol.Game(rules=rules,grid=grid)
+  g = gol.Game(rules=rules,grid=grid)
 
-g.random_grid()
+  g.random_grid()
 
-for x in range(10):
-  g.tick(100)
-  g.show()
+  for x in range(100):
+    g.tick()
+    g.show()
 
-g.output('game.json')
+  g.output('game.json')
