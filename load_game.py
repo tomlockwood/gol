@@ -1,7 +1,7 @@
 import gol
 
 g = gol.load_game(
-  '/Users/tom/Documents/scratch/gol/games/game_ticks40_period24_time2019-01-03T01:16:17.860428.json'
+  '/Users/tom/Documents/scratch/gol/games/game_ticks268_period5_time2019-01-03T01:03:39.535243.json'
   )
 
 # gr = gol.Grid(definition={'x':25,'y':150})

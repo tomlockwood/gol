@@ -4,9 +4,9 @@ from datetime import datetime
 
 for y in range(1000000):
   print('Init game: ' + str(y+1))
-  rules = gol.Rules({'randomize': 3})
+  rules = gol.Rules({'randomize': 4})
 
-  grid = gol.Grid({'x': 25, 'y': 50})
+  grid = gol.Grid({'x': 50, 'y': 50})
 
   g = gol.Game(rules=rules,grid=grid)
 
@@ -19,7 +19,7 @@ for y in range(1000000):
     if g.grid.state in grid_states:
       if g.ticks > 10:
         g_start.output('games/game_ticks{}_period{}_time{}.json'.format(
-          g.ticks,grid_states.index(g.grid.state)+1,datetime.now().isoformat()))
+          g.ticks,len(grid_states)-grid_states.index(g.grid.state),datetime.now().isoformat()))
       break
     
     grid_states.append(g.grid.state)
