@@ -27,6 +27,6 @@ def load_game(file):
   grid = load_grid(json_game=json_game)
   ruleset = load_rules(json_game=json_game)
   game = Game(rules=ruleset,grid=grid)
-  g.ticks = json_game.get('ticks',0)
+  game.ticks = json_game.get('ticks',0)
 
   return game

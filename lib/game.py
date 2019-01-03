@@ -76,7 +76,7 @@ class Game:
   def output(self,file,seed=False):
     if seed == False:
       game = self
-    elif seed == True
+    elif seed == True:
       game = self.seed
     json_dict = {}
     json_dict['ticks'] = game.ticks
