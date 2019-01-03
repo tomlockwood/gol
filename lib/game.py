@@ -47,13 +47,19 @@ class Game:
           adjacent = self.find_alive(x,y)
           self.next_state[x].append(self.state_rule(x,y).transitions[adjacent])
     self.grid.state = self.next_state
+    if self.period_retention > 0:
+      if len(self.grid_states) >= self.period_retention:
+        self.grid_states.pop(0)
+      self.grid_states.append(self.grid.state)
     self.ticks += amount
   
   @property
   def periodic(self):
+    if self.period_retention == 0: raise ValueError('No period_retention set for this game.')
     state = self.grid.state
-    if state in self.grid_states:
-      return len(self.grid_states)-self.grid_states.index(state)
+    # Removes last grid_state after tick, because it represents current state
+    if state in self.grid_states[:-1]:
+      return len(self.grid_states)-(self.grid_states.index(state)+1)
     else:
       return
 
