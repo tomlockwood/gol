@@ -1,8 +1,15 @@
 from gol import *
 import sys
 
-def init(filename):
-  g = load_game(filename)
+def init(filename,random_grid=True):
+  if random_grid:
+    r = load_rules(filename)
+    g = Game(r,Grid(definition={'x':50,'y':50}))
+    g.random_grid()
+  else:
+    g = load_game(filename)
+
+  g.show(1)
 
   for x in range(1000):
     g.tick()

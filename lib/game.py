@@ -16,10 +16,12 @@ class Game:
 
     self.seed = copy.deepcopy(self)
   
-  def random_grid(self):
+  def random_grid(self,reset_seed=True):
     for x in range(self.grid.x):
       for y in range(self.grid.y):
         self.grid.state[x][y] = random.choice(range(self.rules.amount))
+    if reset_seed:
+      self.seed = copy.deepcopy(self)
 
   def get_state(self,x,y):
     return self.grid.state[x][y]
@@ -46,11 +48,11 @@ class Game:
         for y in range(self.grid.y):
           adjacent = self.find_alive(x,y)
           self.next_state[x].append(self.state_rule(x,y).transitions[adjacent])
-    self.grid.state = self.next_state
-    if self.period_retention > 0:
-      if len(self.grid_states) >= self.period_retention:
-        self.grid_states.pop(0)
-      self.grid_states.append(self.grid.state)
+      self.grid.state = self.next_state
+      if self.period_retention > 0:
+        if len(self.grid_states) >= self.period_retention:
+          self.grid_states.pop(0)
+        self.grid_states.append(self.grid.state)
     self.ticks += amount
   
   @property
@@ -69,6 +71,7 @@ class Game:
     WHITE_TEXT = TEXT + '255;255;255m'
 
     print(chr(27) + "[2J")
+    print('\033[H')
     print (WHITE_TEXT + 'At tick number ' + str(self.ticks))
     for x in range(self.grid.x):
       print()
