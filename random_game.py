@@ -2,23 +2,35 @@ import gol
 import copy
 from datetime import datetime
 
+PERIOD_RETENTION = 150
+GRID_X = 50
+GRID_Y = 50
+TICK_LIMIT = 1500
+RULES = 3
+
 for y in range(1000000):
   print('Init game: ' + str(y+1))
-  rules = gol.Rules({'randomize': 3})
+  rules = gol.Rules(randomize=RULES)
 
-  grid = gol.Grid({'x': 50, 'y': 50})
+  grid = gol.Grid(x=GRID_X,y=GRID_Y)
 
-  g = gol.Game(rules=rules,grid=grid,period_retention=50)
+  g = gol.Game(rules=rules,grid=grid,period_retention=PERIOD_RETENTION)
 
   g.random_grid()
 
-  for x in range(5000):
+  for x in range(TICK_LIMIT):
     g.tick()
     if g.periodic != None:
-      if g.ticks > 10:
-        g.seed.output('{}.json'.format(datetime.now().isoformat()),
-        metadata={'period': g.periodic}
-        )
       break
 
-  g.output('games/game.json')
+  g.seed.output('games/{}.json'.format(datetime.now().isoformat()),
+  metadata={
+    'period': g.periodic,
+    'end_ticks': g.ticks,
+    'max_cycle': PERIOD_RETENTION,
+    'x': GRID_X,
+    'y': GRID_Y,
+    'max_ticks': TICK_LIMIT,
+    'rules': RULES
+    }
+  )

@@ -4,7 +4,7 @@ import sys
 def init(filename,random_grid=True):
   if random_grid:
     r = load_rules(filename)
-    g = Game(r,Grid(x=60,y=100))
+    g = Game(r,Grid(x=50,y=50))
     g.random_grid()
   else:
     g = load_game(filename)
