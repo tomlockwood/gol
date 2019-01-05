@@ -73,13 +73,14 @@ class Game:
     print(chr(27) + "[2J")
     print('\033[H')
     print (WHITE_TEXT + 'At tick number ' + str(self.ticks))
+    out = ''
     for x in range(self.grid.x):
-      print()
+      out += '\n'
       for y in self.grid.state[x]:
         colour = self.rules.rules[y].colour
         text_colour = TEXT + COLOUR_TEXT.format(**colour)
-        print(text_colour + str(y), end='')
-    print()
+        out += text_colour + str(y)
+    print(out + WHITE_TEXT)
     time.sleep(wait)
   
   def output(self,file,seed=False):
