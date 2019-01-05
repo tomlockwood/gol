@@ -16,8 +16,9 @@ for y in range(1000000):
     g.tick()
     if g.periodic != None:
       if g.ticks > 10:
-        g.seed.output('games/ticks{}_period{}_time{}.json'.format(
-          g.ticks,g.periodic,datetime.now().isoformat()))
+        g.seed.output('{}.json'.format(datetime.now().isoformat()),
+        metadata={'period': g.periodic}
+        )
       break
 
   g.output('games/game.json')

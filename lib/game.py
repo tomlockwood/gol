@@ -83,12 +83,14 @@ class Game:
     print(out + WHITE_TEXT)
     time.sleep(wait)
   
-  def output(self,file,seed=False):
+  def output(self,file,metadata=None,seed=False):
+    json_dict = {}
+    if metadata != None:
+      json_dict['metadata'] = metadata
     if seed == False:
       game = self
     elif seed == True:
       game = self.seed
-    json_dict = {}
     json_dict['ticks'] = game.ticks
     json_dict['rules'] = []
     for x in game.rules.rules:
