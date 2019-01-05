@@ -12,14 +12,14 @@ def load_rules(file=None,json_game=None):
       json_game = json.load(infile)
   rules = []
   for rule in json_game['rules']:
-    rules.append(Rule(definition=rule))
-  return Rules(definition={'rules': rules})
+    rules.append(Rule(**rule))
+  return Rules(rules=rules)
 
 def load_grid(file=None,json_game=None):
   if file != None:
     with open(file,'r') as infile:
       json_game = json.load(infile)
-  return Grid(definition=json_game['grid'])
+  return Grid(**json_game['grid'])
 
 def load_game(file):
   with open(file,'r') as infile:

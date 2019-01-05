@@ -1,11 +1,11 @@
 import random
 
 class Rule:
-  def __init__(self,definition={}):
-    self.alive = definition.get('alive')
-    self.rule_amount = definition.get('rule_amount')
-    self.colour = definition.get('colour')
-    self.transitions = definition.get('transitions')
+  def __init__(self,**kwargs):
+    self.alive = kwargs.get('alive')
+    self.rule_amount = kwargs.get('rule_amount')
+    self.colour = kwargs.get('colour')
+    self.transitions = kwargs.get('transitions')
 
     # Set the alive status if it is ambiguous
     if self.alive == None:
@@ -15,7 +15,7 @@ class Rule:
     if self.transitions == None:
       self.transitions = []
       for x in range(9):
-        self.transitions.append(random.choice(range(definition['rule_amount'])))
+        self.transitions.append(random.choice(range(kwargs['rule_amount'])))
 
     if self.colour == None:
       self.colour = {}

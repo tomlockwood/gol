@@ -1,13 +1,13 @@
 import random
 
 class Grid:
-  def __init__(self,definition={}):
+  def __init__(self,**kwargs):
     self.state = []
-    self.state = definition.get('state')
+    self.state = kwargs.get('state')
     if self.state == None:
       self.state = []
-      self.x = definition.get('x',random.randint(5,10))
-      self.y = definition.get('y',random.randint(5,10))
+      self.x = kwargs.get('x',random.randint(5,10))
+      self.y = kwargs.get('y',random.randint(5,10))
       for x in range(self.x):
         self.state.append([])
         for y in range(self.y):

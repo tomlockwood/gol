@@ -2,14 +2,13 @@ import random
 from lib.rule import *
 
 class Rules:
-  def __init__(self,definition={}):
-    self.definition = definition
-    self.rules = definition.get('rules')
+  def __init__(self,**kwargs):
+    self.rules = kwargs.get('rules')
 
     # Set the amount of rules to be generated, or that exist
-    if definition.get('randomize') != None:
+    if kwargs.get('randomize') != None:
       if self.rules != None: raise ValueError('Passed both randomize integer and preset rules.')
-      rule_amount = int(definition['randomize'])
+      rule_amount = int(kwargs['randomize'])
     elif self.rules != None:
       rule_amount = len(self.rules)
     else:
@@ -18,9 +17,7 @@ class Rules:
     # Generate rules if they don't exist yet
     if self.rules == None:
       self.rules = []
-      class_init = {}
-      class_init['rule_amount'] = rule_amount 
       for x in range(rule_amount):
-        self.rules.append(Rule(class_init))
+        self.rules.append(Rule(rule_amount=rule_amount))
     
     self.amount = rule_amount

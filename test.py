@@ -10,12 +10,12 @@ class TestRandomGameCreation(unittest.TestCase):
 class TestConwaysGameOfLife(unittest.TestCase):
 
   def setUp(self):
-    self.r = Rules({'rules': [
-      Rule({'alive': False,
-      'transitions': [0,0,0,1,0,0,0,0,0]}),
-      Rule({'alive': True,
-      'transitions': [0,0,1,1,0,0,0,0,0]})
-      ]})
+    self.r = Rules(rules=[
+      Rule(alive=False,
+      transitions=[0,0,0,1,0,0,0,0,0]),
+      Rule(alive=True,
+      transitions=[0,0,1,1,0,0,0,0,0])
+      ])
   
   def test_stable_square(self):
     state = \
@@ -25,7 +25,7 @@ class TestConwaysGameOfLife(unittest.TestCase):
       [0,1,1,0],
       [0,0,0,0]
     ]
-    g = Game(self.r,Grid({'state': state}),period_retention=2)
+    g = Game(self.r,Grid(state=state),period_retention=2)
     self.assertEqual(g.find_alive(1,1),3)
     g.tick()
     self.assertEqual(g.grid.state,state)
@@ -46,7 +46,7 @@ class TestConwaysGameOfLife(unittest.TestCase):
       [0,0,0,0],
       [0,0,0,0]
     ]
-    g = Game(self.r,Grid({'state': state}),period_retention=2)
+    g = Game(self.r,Grid(state=state),period_retention=2)
     g.tick()
     self.assertEqual(g.grid.state,state_next)
     self.assertEqual(g.periodic,None)
@@ -74,7 +74,7 @@ class TestConwaysGameOfLife(unittest.TestCase):
       [0,0,1,0,0,0],
       [0,0,0,0,0,0]
     ]
-    g = Game(self.r,Grid({'state': state}),period_retention=3)
+    g = Game(self.r,Grid(state=state),period_retention=3)
     g.tick()
     self.assertEqual(g.grid.state,state_next)
     self.assertEqual(g.periodic,None)
@@ -94,23 +94,23 @@ class TestGridCreation(unittest.TestCase):
 
   def test_set_state(self):
     state = [[0,0,0],[0,0,0]]
-    self.g = Grid({'state': state})
+    self.g = Grid(state=state)
     self.assertEqual(self.g.x,2)
     self.assertEqual(self.g.y,3)
     self.assertEqual(self.g.state,state)
   
   def test_set_x_y(self):
-    self.g = Grid({'x': 2, 'y': 1})
+    self.g = Grid(x=2,y=1)
     self.assertEqual(self.g.state,[[0],[0]])
 
 class TestRuleCreation(unittest.TestCase):
 
   def test_random_alive(self):
-    self.r = Rule({'rule_amount': 2})
+    self.r = Rule(rule_amount=2)
     self.assertTrue(self.r.alive in [True, False])
   
   def test_random_rule(self):
-    self.r = Rule({'rule_amount': 3})
+    self.r = Rule(rule_amount=3)
     self.assertTrue(max(self.r.transitions) < 3)
 
 class TestRulesCreation(unittest.TestCase):
