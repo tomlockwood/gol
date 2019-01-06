@@ -32,14 +32,10 @@ for y in range(1000000):
     if g.periodic != None:
       break
 
-  g.seed.output('games/{}.json'.format(datetime.now().isoformat()),
-  metadata={
-    'period': g.periodic,
-    'end_ticks': g.ticks,
-    'max_cycle': PERIOD_RETENTION,
-    'x': GRID_X,
-    'y': GRID_Y,
-    'max_ticks': TICK_LIMIT,
-    'rules': RULES
-    }
-  )
+  g.metadata['period'] = g.periodic
+  g.metadata['end_ticks'] = g.ticks
+  g.metadata['max_cycle'] = PERIOD_RETENTION
+  g.metadata['max_ticks'] = TICK_LIMIT
+  g.metadata['rules'] = RULES
+
+  g.output('games/{}.json'.format(datetime.now().isoformat()),seed=True)

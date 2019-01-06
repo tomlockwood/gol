@@ -6,6 +6,7 @@ game_files = os.listdir('games/')
 
 end_ticks = []
 alive_rule_count = []
+period_spread = {}
 
 alive_group_by = [0,0,0,0]
 
@@ -14,6 +15,14 @@ for game_file in game_files:
     json_game = json.load(json_stream)
 
   end_tick = json_game['metadata']['end_ticks']
+
+  period = json_game['metadata']['period']
+
+  if period != None:
+    if period_spread.get(period) == None:
+      period_spread[period] = 1
+    else:
+      period_spread[period] += 1
 
   if end_tick < 10: continue
 
@@ -31,6 +40,10 @@ for game_file in game_files:
 
 for idx, x in enumerate(alive_group_by):
   print ('{} alive: {}'.format(idx,x))
+
+print(period_spread)
+for k in period_spread:
+  print("{}: {}".format(k,period_spread[k]))
 
 plt.plot(end_ticks,alive_rule_count,'ro')
 plt.show()

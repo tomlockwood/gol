@@ -21,6 +21,12 @@ def load_grid(file=None,json_game=None):
       json_game = json.load(infile)
   return Grid(**json_game['grid'])
 
+def load_metadata(file=None,json_game=None):
+  if file != None:
+    with open(file,'r') as infile:
+      json_game = json.load(infile)
+  return json_game['metadata']
+
 def load_game(file):
   with open(file,'r') as infile:
     json_game = json.load(infile)
@@ -28,5 +34,6 @@ def load_game(file):
   ruleset = load_rules(json_game=json_game)
   game = Game(rules=ruleset,grid=grid)
   game.ticks = json_game.get('ticks',0)
+  game.metadata = load_metadata(json_game=json_game)
 
   return game

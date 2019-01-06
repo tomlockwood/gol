@@ -15,6 +15,8 @@ class Game:
       self.grid_states = [self.grid.state]
 
     self.seed = copy.deepcopy(self)
+
+    self.metadata = {}
   
   def random_grid(self,reset_seed=True):
     for x in range(self.grid.x):
@@ -73,6 +75,8 @@ class Game:
     print(chr(27) + "[2J")
     print('\033[H')
     print (WHITE_TEXT + 'At tick number ' + str(self.ticks))
+    for k in self.metadata:
+      print('{}: {}'.format(k,self.metadata[k]))
     out = ''
     for x in range(self.grid.x):
       out += '\n'
@@ -83,10 +87,9 @@ class Game:
     print(out + WHITE_TEXT)
     time.sleep(wait)
   
-  def output(self,file,metadata=None,seed=False):
+  def output(self,file,seed=False):
     json_dict = {}
-    if metadata != None:
-      json_dict['metadata'] = metadata
+    json_dict['metadata'] = self.metadata
     if seed == False:
       game = self
     elif seed == True:
