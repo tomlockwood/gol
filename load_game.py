@@ -11,7 +11,7 @@ def init(filename,random_grid=True):
 
   g.show(1)
 
-  for x in range(1000):
+  for x in range(1500):
     g.tick()
     g.show()
 

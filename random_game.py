@@ -10,7 +10,16 @@ RULES = 3
 
 for y in range(1000000):
   print('Init game: ' + str(y+1))
-  rules = gol.Rules(randomize=RULES)
+
+  rules_unsatisfying = True
+
+  while rules_unsatisfying:
+    alives = 0
+    rules = gol.Rules(randomize=RULES)
+    for rule in rules.rules:
+      if rule.alive: alives += 1
+    if alives in [1,2]:
+      rules_unsatisfying = False
 
   grid = gol.Grid(x=GRID_X,y=GRID_Y)
 
