@@ -1,4 +1,5 @@
 import unittest
+import numpy
 from gol import *
 
 class TestRandomGameCreation(unittest.TestCase):
@@ -48,7 +49,8 @@ class TestConwaysGameOfLife(unittest.TestCase):
     ]
     g = Game(self.r,Grid(state=state),period_retention=2)
     g.tick()
-    self.assertEqual(g.grid.state,state_next)
+    # TODO - fix 54 onwards
+    self.assertTrue(numpy.array_equal(g.grid.state,numpy.asarray(state_next)))
     self.assertEqual(g.periodic,None)
     g.tick()
     g.tick()
