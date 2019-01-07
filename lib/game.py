@@ -45,7 +45,6 @@ class Game:
 
   def tick(self,amount=1):
     for i in range(amount):
-      # TODO - Needs to be adjusted more for the numpy usage
       self.next_state = numpy.zeros([self.grid.x,self.grid.y],dtype=numpy.uint8)
       for x in range(self.grid.x):
         for y in range(self.grid.y):

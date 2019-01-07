@@ -1,4 +1,5 @@
 from gol import *
+from lib.display import *
 import sys, os
 
 def init(filename,random_grid=True):
@@ -13,23 +14,7 @@ def init(filename,random_grid=True):
     g.metadata['filename'] = filename
 
   if g.metadata.get('period') not in [None,1,2]:
-    g.show(1)
-
-    period_even = (g.metadata['period'] % 2) == 0
-
-    tick_amt = g.metadata['end_ticks'] + g.metadata['period']
-    if period_even:
-      tick_rng = range(int(tick_amt / 2))
-    else:
-      tick_rng = range(tick_amt)
-      
-
-    for x in tick_rng:
-      if period_even:
-        g.tick(2)
-      else:
-        g.tick()
-      g.show(0)
+    d = Display(g)
 
 if __name__ == '__main__':
   for game_file in os.listdir('games/'):
