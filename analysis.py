@@ -8,15 +8,18 @@ end_ticks = []
 alive_rule_count = []
 period_spread = {}
 
-alive_group_by = [0,0,0,0]
+alive_group_by = [0,0,0,0,0,0,0,0,0,0]
 
 for game_file in game_files:
   with open('games/' + game_file, 'r') as json_stream:
     json_game = json.load(json_stream)
+  
+  metadata = json_game.get('metadata')
+  if metadata in [{},None]: continue
 
-  end_tick = json_game['metadata']['end_ticks']
+  end_tick = metadata['end_ticks']
 
-  period = json_game['metadata']['period']
+  period = metadata['period']
 
   if period != None:
     if period_spread.get(period) == None:
@@ -41,7 +44,6 @@ for game_file in game_files:
 for idx, x in enumerate(alive_group_by):
   print ('{} alive: {}'.format(idx,x))
 
-print(period_spread)
 for k in period_spread:
   print("{}: {}".format(k,period_spread[k]))
 
