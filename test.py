@@ -40,17 +40,17 @@ class TestConwaysGameOfLife(unittest.TestCase):
       [0,0,0,0],
       [1,0,0,1]
     ]
-    state_next = \
+    state_next = numpy.asarray(
     [
       [0,0,0,0],
       [0,0,0,0],
       [0,0,0,0],
       [0,0,0,0]
-    ]
+    ])
     g = Game(self.r,Grid(state=state),period_retention=2)
     g.tick()
     # TODO - fix 54 onwards
-    self.assertTrue(numpy.array_equal(g.grid.state,numpy.asarray(state_next)))
+    self.assertTrue(numpy.array_equal(g.grid.state,state_next))
     self.assertEqual(g.periodic,None)
     g.tick()
     g.tick()

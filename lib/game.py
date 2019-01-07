@@ -2,6 +2,7 @@ import random
 import time
 import json
 import copy
+import numpy
 from lib.rules import *
 from lib.grid import *
 
@@ -44,7 +45,8 @@ class Game:
 
   def tick(self,amount=1):
     for i in range(amount):
-      self.next_state = []
+      # TODO - Needs to be adjusted more for the numpy usage
+      self.next_state = numpy.zeros([self.grid.x,self.grid.y])
       for x in range(self.grid.x):
         self.next_state.append([])
         for y in range(self.grid.y):
@@ -60,12 +62,14 @@ class Game:
   @property
   def periodic(self):
     if self.period_retention == 0: raise ValueError('No period_retention set for this game.')
-    state = self.grid.state
+    current_state = self.grid.state
+    for grid_state, idx in enumerate(self.grid_states[:-1]):
+      print(type(grid_state))
+      print(type(grid_state))
+      if numpy.array_equal(current_state,grid_state):
+        return idx
     # Removes last grid_state after tick, because it represents current state
-    if state in self.grid_states[:-1]:
-      return len(self.grid_states)-(self.grid_states.index(state)+1)
-    else:
-      return
+    return
 
   def show(self,wait=0.3):
     TEXT = '\033[38;2;'
