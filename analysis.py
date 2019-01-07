@@ -7,6 +7,7 @@ game_files = os.listdir('games/')
 end_ticks = []
 alive_rule_count = []
 period_spread = {}
+rule_amounts = []
 
 alive_group_by = [0,0,0,0,0,0,0,0,0,0]
 
@@ -20,6 +21,8 @@ for game_file in game_files:
   end_tick = metadata['end_ticks']
 
   period = metadata['period']
+
+  rule_amount = metadata['rules']
 
   if period != None:
     if period_spread.get(period) == None:
@@ -38,6 +41,7 @@ for game_file in game_files:
       alives += 1
   
   end_ticks.append(end_tick)
+  rule_amounts.append(rule_amount)
   alive_group_by[alives] += 1
   alive_rule_count.append(alives)
 
@@ -48,4 +52,5 @@ for k in period_spread:
   print("{}: {}".format(k,period_spread[k]))
 
 plt.plot(end_ticks,alive_rule_count,'ro')
+plt.plot(end_ticks,rule_amounts,'b^')
 plt.show()
