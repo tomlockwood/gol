@@ -1,5 +1,6 @@
 import gol
 import copy
+import random
 from datetime import datetime
 
 PERIOD_RETENTION = 150
@@ -9,16 +10,17 @@ TICK_LIMIT = 1500
 RULES = 3
 
 for y in range(1000000):
+  rule_amount = random.randint(2,9)
   print('Init game: ' + str(y+1))
 
   rules_unsatisfying = True
 
   while rules_unsatisfying:
     alives = 0
-    rules = gol.Rules(randomize=RULES)
+    rules = gol.Rules(randomize=rule_amount)
     for rule in rules.rules:
       if rule.alive: alives += 1
-    if alives in [1,2]:
+    if alives not in [0,rule_amount]:
       rules_unsatisfying = False
 
   grid = gol.Grid(x=GRID_X,y=GRID_Y)
@@ -36,6 +38,6 @@ for y in range(1000000):
   g.metadata['end_ticks'] = g.ticks
   g.metadata['max_cycle'] = PERIOD_RETENTION
   g.metadata['max_ticks'] = TICK_LIMIT
-  g.metadata['rules'] = RULES
+  g.metadata['rules'] = g.rules.amount
 
   g.output('games/{}.json'.format(datetime.now().isoformat()),seed=True)
