@@ -97,9 +97,9 @@ class Game:
       game = self.seed
     json_dict['ticks'] = game.ticks
     json_dict['rules'] = []
-    for x in game.rules.rules:
-      json_dict['rules'].append(vars(x))
-    json_dict['grid'] = vars(game.grid)
+    for rule in game.rules.rules:
+      json_dict['rules'].append(vars(rule))
+    json_dict['grid'] = game.grid.output()
 
     with open(file,'w') as outfile:
       json.dump(json_dict, outfile)

@@ -29,9 +29,10 @@ def init(filename,random_grid=True):
         g.tick(2)
       else:
         g.tick()
-      g.show()
+      g.show(0)
 
 if __name__ == '__main__':
+  #init(sys.argv[1])
   for game_file in os.listdir('games/'):
     print (game_file)
     init('games/' + game_file,random_grid=False)

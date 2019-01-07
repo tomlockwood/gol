@@ -13,3 +13,10 @@ class Grid:
       self.state = numpy.asarray(self.state,numpy.uint8)
       self.x = numpy.size(self.state,0)
       self.y = numpy.size(self.state,1)
+  
+  def output(self):
+    return {
+      'x': self.x,
+      'y': self.y,
+      'state': self.state.tolist()
+    }
