@@ -27,7 +27,7 @@ class Game:
       self.seed = copy.deepcopy(self)
 
   def get_state(self,x,y):
-    return self.grid.state[x][y]
+    return int(self.grid.state[x,y])
   
   def state_rule(self,x,y):
     return self.rules.rules[self.get_state(x,y)]
@@ -46,12 +46,11 @@ class Game:
   def tick(self,amount=1):
     for i in range(amount):
       # TODO - Needs to be adjusted more for the numpy usage
-      self.next_state = numpy.zeros([self.grid.x,self.grid.y])
+      self.next_state = numpy.zeros([self.grid.x,self.grid.y],dtype=numpy.uint8)
       for x in range(self.grid.x):
-        self.next_state.append([])
         for y in range(self.grid.y):
           adjacent = self.find_alive(x,y)
-          self.next_state[x].append(self.state_rule(x,y).transitions[adjacent])
+          self.next_state[x,y] = self.state_rule(x,y).transitions[adjacent]
       self.grid.state = self.next_state
       if self.period_retention > 0:
         if len(self.grid_states) >= self.period_retention:
@@ -63,11 +62,9 @@ class Game:
   def periodic(self):
     if self.period_retention == 0: raise ValueError('No period_retention set for this game.')
     current_state = self.grid.state
-    for grid_state, idx in enumerate(self.grid_states[:-1]):
-      print(type(grid_state))
-      print(type(grid_state))
+    for idx, grid_state in enumerate(self.grid_states[:-1]):
       if numpy.array_equal(current_state,grid_state):
-        return idx
+        return idx+1
     # Removes last grid_state after tick, because it represents current state
     return
 

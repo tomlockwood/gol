@@ -29,7 +29,7 @@ class TestConwaysGameOfLife(unittest.TestCase):
     g = Game(self.r,Grid(state=state),period_retention=2)
     self.assertEqual(g.find_alive(1,1),3)
     g.tick()
-    self.assertEqual(g.grid.state,state)
+    self.assertTrue(numpy.array_equal(g.grid.state,state))
     self.assertEqual(g.periodic,1)
 
   def test_corners(self):
@@ -49,7 +49,6 @@ class TestConwaysGameOfLife(unittest.TestCase):
     ])
     g = Game(self.r,Grid(state=state),period_retention=2)
     g.tick()
-    # TODO - fix 54 onwards
     self.assertTrue(numpy.array_equal(g.grid.state,state_next))
     self.assertEqual(g.periodic,None)
     g.tick()
@@ -78,7 +77,7 @@ class TestConwaysGameOfLife(unittest.TestCase):
     ]
     g = Game(self.r,Grid(state=state),period_retention=3)
     g.tick()
-    self.assertEqual(g.grid.state,state_next)
+    self.assertTrue(numpy.array_equal(g.grid.state,state_next))
     self.assertEqual(g.periodic,None)
 
 class TestGridCreation(unittest.TestCase):
@@ -99,11 +98,11 @@ class TestGridCreation(unittest.TestCase):
     self.g = Grid(state=state)
     self.assertEqual(self.g.x,2)
     self.assertEqual(self.g.y,3)
-    self.assertEqual(self.g.state,state)
+    self.assertTrue(numpy.array_equal(self.g.state,state))
   
   def test_set_x_y(self):
     self.g = Grid(x=2,y=1)
-    self.assertEqual(self.g.state,[[0],[0]])
+    self.assertTrue(numpy.array_equal(self.g.state,[[0],[0]]))
 
 class TestRuleCreation(unittest.TestCase):
 
