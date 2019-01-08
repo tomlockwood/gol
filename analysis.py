@@ -19,6 +19,7 @@ for game_file in game_files:
   if metadata in [{},None]: continue
 
   end_tick = metadata['end_ticks']
+  max_ticks = metadata['max_ticks']
 
   period = metadata['period']
 
@@ -32,7 +33,9 @@ for game_file in game_files:
 
   if end_tick < 10: continue
 
-  if end_tick == 1500: continue
+  if end_tick == max_ticks: continue
+
+  if max_ticks != 3000: continue
 
   alives = 0
 
