@@ -64,7 +64,7 @@ class Game:
     current_state = self.grid.state
     for idx, grid_state in enumerate(self.grid_states[:-1]):
       if numpy.array_equal(current_state,grid_state):
-        return idx+1
+        return len(self.grid_states)-(idx+1)
     # Removes last grid_state after tick, because it represents current state
     return
 
