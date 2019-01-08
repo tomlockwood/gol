@@ -1,4 +1,4 @@
-import gol
+from lib.gol import *
 import copy
 import random
 from datetime import datetime
@@ -16,15 +16,15 @@ for y in range(1000000):
 
   while rules_unsatisfying:
     alives = 0
-    rules = gol.Rules(randomize=rule_amount)
+    rules = Rules(randomize=rule_amount)
     for rule in rules.rules:
       if rule.alive: alives += 1
     if alives not in [0,rule_amount]:
       rules_unsatisfying = False
 
-  grid = gol.Grid(x=GRID_X,y=GRID_Y)
+  grid = Grid(x=GRID_X,y=GRID_Y)
 
-  g = gol.Game(rules=rules,grid=grid,period_retention=PERIOD_RETENTION)
+  g = Game(rules=rules,grid=grid,period_retention=PERIOD_RETENTION)
 
   g.random_grid()
 

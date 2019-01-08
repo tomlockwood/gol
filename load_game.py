@@ -1,26 +1,17 @@
-from gol import *
+from lib.gol import *
 import sys, os
 import random
 
 def play(g,game_file):
   g.show(1)
 
-  period_even = (g.metadata['period'] % 2) == 0
-
   tick_amt = g.metadata['end_ticks'] + g.metadata['period']
-  if period_even:
-    tick_rng = range(int(tick_amt / 2))
-  else:
-    tick_rng = range(tick_amt)
 
   opt = None
   while opt != '':
-    for x in tick_rng:
-      if period_even:
-        g.tick(2)
-      else:
-        g.tick()
-      g.show(0)
+    for x in range(tick_amt):
+      g.tick()
+      g.show(0.01)
 
     print('r=replay, rg=random grid replay, f=change filename')
     print('enter nothing for next')

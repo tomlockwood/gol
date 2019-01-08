@@ -1,6 +1,6 @@
 import unittest
 import numpy
-from gol import *
+from lib.gol import *
 
 class TestRandomGameCreation(unittest.TestCase):
 

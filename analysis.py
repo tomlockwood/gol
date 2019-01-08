@@ -56,4 +56,7 @@ for k in period_spread:
 
 plt.plot(end_ticks,alive_rule_count,'ro')
 plt.plot(end_ticks,rule_amounts,'b^')
+plt.xlabel('ticks iteration ended')
+plt.ylabel('alives/rules')
+plt.title('Game of Life')
 plt.show()
