@@ -1,5 +1,6 @@
 from gol import *
 import sys, os
+import random
 
 def play(g,game_file):
   g.show(1)
@@ -50,11 +51,12 @@ def init(filename,random_grid=False):
 
 if __name__ == '__main__':
   if sys.argv[1] == 'loop':
-    for game_file in os.listdir('games/'):
+    file_list = os.listdir('games/')
+    random.shuffle(file_list)
+    for game_file in file_list:
       g = init('games/' + game_file,random_grid=False)
       if g.metadata.get('period') not in [None,1,2] and \
-        g.metadata.get('end_ticks') > 10 and \
-        g.metadata.get('rules') == 2:
+        g.metadata.get('end_ticks') > 10:
         play(g,game_file)
   else:
     g = init(sys.argv[1],random_grid=False)

@@ -3,11 +3,10 @@ import copy
 import random
 from datetime import datetime
 
-PERIOD_RETENTION = 150
+PERIOD_RETENTION = 250
 GRID_X = 50
 GRID_Y = 50
-TICK_LIMIT = 1500
-RULES = 3
+TICK_LIMIT = 3000
 
 for y in range(1000000):
   rule_amount = random.randint(2,9)
@@ -39,5 +38,6 @@ for y in range(1000000):
   g.metadata['max_cycle'] = PERIOD_RETENTION
   g.metadata['max_ticks'] = TICK_LIMIT
   g.metadata['rules'] = g.rules.amount
-
-  g.output('games/{}.json'.format(datetime.now().isoformat()),seed=True)
+  filename = 'games/{}.json'.format(datetime.now().isoformat())
+  print ('{}: {}'.format(filename,g.metadata))
+  g.output(filename,seed=True)
