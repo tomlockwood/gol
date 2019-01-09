@@ -22,7 +22,7 @@ class Game:
   def random_grid(self,reset_seed=True):
     for x in range(self.grid.x):
       for y in range(self.grid.y):
-        self.grid.state[x][y] = random.choice(range(self.rules.amount))
+        self.grid.state[x,y] = random.choice(range(self.rules.amount))
     if reset_seed:
       self.seed = copy.deepcopy(self)
 
