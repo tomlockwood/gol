@@ -22,6 +22,7 @@ class TestConwaysGameOfLife(unittest.TestCase):
     ]
     g = Game(self.r,Grid(state=state),period_retention=2)
     self.assertEqual(g.find_alive(1,1),3)
+    self.assertEqual(g.find_alive(0,1),2)
     g.tick()
     self.assertTrue(numpy.array_equal(g.grid.state,state))
     self.assertEqual(g.periodic,1)
@@ -73,3 +74,8 @@ class TestConwaysGameOfLife(unittest.TestCase):
     g.tick()
     self.assertTrue(numpy.array_equal(g.grid.state,state_next))
     self.assertEqual(g.periodic,None)
+    g.tick()
+    self.assertEqual(g.periodic,2)
+    g.tick()
+    g.tick()
+    self.assertEqual(g.periodic,2)
