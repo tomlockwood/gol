@@ -11,7 +11,7 @@ def play(g,game_file):
   while opt != '':
     for x in range(tick_amt):
       g.tick()
-      g.show(0.01)
+      g.show(0.1)
 
     print('r=replay, rg=random grid replay, f=change filename')
     print('enter nothing for next')
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     file_list = os.listdir('games/')
     random.shuffle(file_list)
     for game_file in file_list:
-      g = init('games/' + game_file,random_grid=False)
+      g = init('games/' + game_file,random_grid=True)
       if g.metadata.get('period') not in [None,1,2] and \
         g.metadata.get('end_ticks') > 10:
         play(g,game_file)
