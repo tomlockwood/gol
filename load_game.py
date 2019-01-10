@@ -13,7 +13,8 @@ def play(g,game_file):
     curses.init_pair(3, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.curs_set(False)
-    g.stdscr = stdscr
+    g.h, g.w = stdscr.getmaxyx()
+    g.stdscr = curses.newpad(100,100)
     g.show(1)
 
     tick_amt = g.metadata['end_ticks'] + g.metadata['period']

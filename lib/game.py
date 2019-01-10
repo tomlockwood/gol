@@ -72,13 +72,14 @@ class Game:
   def show(self,wait=0.3):
     i = 0
     j = 0
-    self.stdscr.addstr(i, 0, 'At tick number ' + str(self.ticks), curses.color_pair(1))
+    self.stdscr.addstr(i, 60, 'At tick number ' + str(self.ticks), curses.color_pair(1))
     i += 1
     for k in self.metadata:
-      self.stdscr.addstr(i, 0, '{}: {}'.format(k,self.metadata[k]), curses.color_pair(2))
+      self.stdscr.addstr(i, 60, '{}: {}'.format(k,self.metadata[k]), curses.color_pair(2))
       i += 1
 
-    for x in range(20):
+    i = 0
+    for x in range(self.grid.x):
       for y in self.grid.state[x]:
         if y:
           self.stdscr.addstr(i, j, str(y), curses.color_pair(3))
@@ -87,7 +88,9 @@ class Game:
         j += 1
       j = 0
       i += 1
-    self.stdscr.refresh()
+    self.stdscr.clrtoeol()
+    self.stdscr.clearok(1)
+    self.stdscr.refresh(0, 0, 0, 0, self.h - 1, self.w - 1)
     time.sleep(wait)
   
   def output(self,file,seed=False):
