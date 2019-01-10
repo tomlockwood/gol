@@ -5,6 +5,7 @@ import copy
 import numpy
 from lib.rules import *
 from lib.grid import *
+import curses
 
 class Game:
   def __init__(self,rules=Rules(),grid=Grid(),period_retention=0):
@@ -22,7 +23,7 @@ class Game:
   def random_grid(self,reset_seed=True):
     for x in range(self.grid.x):
       for y in range(self.grid.y):
-        self.grid.state[x,y] = random.choice(range(self.rules.amount))
+        self.grid.state[x][y] = random.choice(range(self.rules.amount))
     if reset_seed:
       self.seed = copy.deepcopy(self)
 
@@ -69,23 +70,24 @@ class Game:
     return
 
   def show(self,wait=0.3):
-    TEXT = '\033[38;2;'
-    COLOUR_TEXT = "{r};{g};{b}m"
-    WHITE_TEXT = TEXT + '255;255;255m'
-
-    print(chr(27) + "[2J")
-    print('\033[H')
-    print (WHITE_TEXT + 'At tick number ' + str(self.ticks))
+    i = 0
+    j = 0
+    self.stdscr.addstr(i, 0, 'At tick number ' + str(self.ticks), curses.color_pair(1))
+    i += 1
     for k in self.metadata:
-      print('{}: {}'.format(k,self.metadata[k]))
-    out = ''
-    for x in range(self.grid.x):
-      out += '\n'
+      self.stdscr.addstr(i, 0, '{}: {}'.format(k,self.metadata[k]), curses.color_pair(2))
+      i += 1
+
+    for x in range(20):
       for y in self.grid.state[x]:
-        colour = self.rules.rules[y].colour
-        text_colour = TEXT + COLOUR_TEXT.format(**colour)
-        out += text_colour + str(y)
-    print(out + WHITE_TEXT)
+        if y:
+          self.stdscr.addstr(i, j, str(y), curses.color_pair(3))
+        else:
+          self.stdscr.addstr(i, j, str(y), curses.color_pair(4))
+        j += 1
+      j = 0
+      i += 1
+    self.stdscr.refresh()
     time.sleep(wait)
   
   def output(self,file,seed=False):
