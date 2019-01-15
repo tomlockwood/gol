@@ -1,4 +1,4 @@
-from lib.gol import *
+from gol import *
 import sys, os
 import random
 

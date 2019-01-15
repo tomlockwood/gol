@@ -3,8 +3,8 @@ import time
 import json
 import copy
 import numpy
-from lib.rules import *
-from lib.grid import *
+from rules import *
+from grid import *
 
 class Game:
   def __init__(self,rules=Rules(),grid=Grid(),period_retention=0):
