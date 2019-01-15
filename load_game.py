@@ -18,6 +18,7 @@ def play(g,game_file):
     opt = input('Option?: ')
 
     if opt == 'r':
+      g.ticks = 0
       g.grid.state = g.seed.grid.state
     elif opt == 'rg':
       g.random_grid()
@@ -36,7 +37,8 @@ def init(filename,random_grid=False):
   else:
     g = load_game(filename)
     g.metadata = load_metadata(filename)
-    g.metadata['filename'] = filename
+  
+  g.metadata['filename'] = filename
 
   return g
 

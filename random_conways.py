@@ -13,6 +13,6 @@ g.random_grid()
 
 for x in range(400):
   g.tick()
-  g.show(0)
+  g.show()
 
 g.output('game.json')
