@@ -3,34 +3,44 @@ from game import *
 
 class Render:
 
-  def __init__(self,game=None,x=300,y=400):
+  def __init__(self,x=50,y=50):
     pygame.init()
-    self.game = game
+    self.x = x
+    self.y = y
     infoObject = pygame.display.Info()
-    self.screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
+    self.w = infoObject.current_w
+    self.h = infoObject.current_h
+    self.grid_size()
+    self.screen = pygame.display.set_mode((self.w, self.h),pygame.FULLSCREEN)
     self.done = False
 
-  def cell_size(self):
-    pass
-  
+  def grid_size(self):
+    self.cell_edge = int((self.h-200)/self.x)
+    cell_height_length = self.cell_edge * self.y
+    cell_dist_from_mid = int(cell_height_length/2)
+    self.grid_start_x = self.h - cell_dist_from_mid
+    
   def generate_grid(self):
-    for x in range(self.game.grid.x):
-      for y in range(self.game.grid.y):
+    for x in range(self.x):
+      for y in range(self.y):
         colour = self.game.state_rule(x,y).colour
-        pygame.draw.rect(self.screen, (int(colour['r']), int(colour['g']), int(colour['b'])), pygame.Rect(x*20, y*20, 20, 20))
-
+        pygame.draw.rect(self.screen, (int(colour['r']), int(colour['g']), int(colour['b'])), \
+          pygame.Rect((x*self.cell_edge)+self.grid_start_x-100, (y*self.cell_edge)+100, self.cell_edge, self.cell_edge))
 
   def play(self):
+    self.game = Game(grid=Grid(x=50,y=50),rules=Rules())
     # Determine window size, set up the grid based on the game
     while not self.done:
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
           if event.key == pygame.K_ESCAPE:
             self.done = True
+          elif event.key == pygame.K_SPACE:
+            self.game = Game(grid=Grid(x=50,y=50),rules=Rules())
+            self.game.random_grid()
       self.generate_grid()
       pygame.display.flip()
       self.game.tick()
 
-g = Game()
-r = Render(g)
+r = Render()
 r.play()
