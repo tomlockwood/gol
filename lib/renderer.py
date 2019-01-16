@@ -40,6 +40,7 @@ class Render:
 
   def play(self):
     # Determine window size, set up the grid based on the game
+    clock = pygame.time.Clock()
     while not self.done:
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -52,9 +53,11 @@ class Render:
       self.screen.fill((0,0,0))
       out = []
       out.append('Tick:   ' + str(self.game.ticks))
+      out.append('FPS:   ' + str(int(clock.get_fps())))
       self.generate_grid()
       for k in self.game.metadata:
         out.append('{}:   {}'.format(k,self.game.metadata[k]))
       self.generate_text(out)
       pygame.display.flip()
       self.game.tick()
+      clock.tick(30)
