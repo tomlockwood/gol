@@ -15,6 +15,7 @@ if __name__ == '__main__':
   random.shuffle(file_list)
   r = Render()
   for game_file in file_list:
+    if os.path.isdir('examples/' + game_file): continue
     g = init('examples/' + game_file)
     r.game = g
     out = r.play()
