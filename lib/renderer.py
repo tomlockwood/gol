@@ -30,8 +30,11 @@ class Render:
         pygame.draw.rect(self.screen, (int(colour['r']), int(colour['g']), int(colour['b'])), \
           pygame.Rect((x*self.cell_edge)+self.grid_start_x-100, (y*self.cell_edge)+100, self.cell_edge, self.cell_edge))
 
+  def generate_text(self,input):
+    text, rect = self.pixel.render(input, (255,255,255))
+    return text
+
   def play(self):
-    text, rect = self.pixel.render('Hi', (255,255,255))
     self.game = Game(grid=Grid(x=50,y=50),rules=Rules())
     # Determine window size, set up the grid based on the game
     while not self.done:
@@ -42,7 +45,9 @@ class Render:
           elif event.key == pygame.K_SPACE:
             self.game = Game(grid=Grid(x=50,y=50),rules=Rules())
             self.game.random_grid()
+      self.screen.fill((0,0,0))
       self.generate_grid()
+      text = self.generate_text(str(self.game.ticks))
       self.screen.blit(text,(0,0))
       pygame.display.flip()
       self.game.tick()
