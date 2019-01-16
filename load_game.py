@@ -19,3 +19,5 @@ if __name__ == '__main__':
     r.game = g
     out = r.play()
     if out == 'Done': break
+    if out == 'Move':
+      os.rename('examples/' + game_file, 'examples/shteve/' + game_file)

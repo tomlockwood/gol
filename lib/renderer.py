@@ -46,6 +46,8 @@ class Render:
             return 'Done'
           elif event.key == pygame.K_SPACE:
             return 'Next'
+          elif event.key == pygame.K_k:
+            return 'Move'
       self.screen.fill((0,0,0))
       out = []
       self.generate_grid()
