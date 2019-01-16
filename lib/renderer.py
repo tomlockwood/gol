@@ -1,5 +1,6 @@
 import pygame
 import pygame.freetype
+import random
 from lib.game import *
 
 class Render:
@@ -14,7 +15,8 @@ class Render:
     self.grid_size()
     self.screen = pygame.display.set_mode((self.w, self.h),pygame.FULLSCREEN)
     pygame.font.init()
-    self.pixel = pygame.freetype.Font('assets/pixel.ttf', 30)
+    self.pixel = pygame.freetype.Font(None, 30)
+    #self.pixel = pygame.freetype.Font('assets/pixel.ttf', 30)
     self.done = False
 
   def grid_size(self):
@@ -30,24 +32,25 @@ class Render:
         pygame.draw.rect(self.screen, (int(colour['r']), int(colour['g']), int(colour['b'])), \
           pygame.Rect((x*self.cell_edge)+self.grid_start_x-100, (y*self.cell_edge)+100, self.cell_edge, self.cell_edge))
 
-  def generate_text(self,input):
-    text, rect = self.pixel.render(input, (255,255,255))
-    return text
+  def generate_text(self,input,x=0,y=0):
+    for idx, line in enumerate(input):
+      text, rect = self.pixel.render(line, (255,255,255))
+      self.screen.blit(text,(x,y+(30*idx)))
 
   def play(self):
-    self.game = Game(grid=Grid(x=50,y=50),rules=Rules())
     # Determine window size, set up the grid based on the game
     while not self.done:
       for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
           if event.key == pygame.K_ESCAPE:
-            self.done = True
+            return 'Done'
           elif event.key == pygame.K_SPACE:
-            self.game = Game(grid=Grid(x=50,y=50),rules=Rules())
-            self.game.random_grid()
+            return 'Next'
       self.screen.fill((0,0,0))
+      out = []
       self.generate_grid()
-      text = self.generate_text(str(self.game.ticks))
-      self.screen.blit(text,(0,0))
+      for k in self.game.metadata:
+        out.append('{}:   {}'.format(k,self.game.metadata[k]))
+      self.generate_text(out)
       pygame.display.flip()
       self.game.tick()
