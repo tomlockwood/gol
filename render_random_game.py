@@ -5,7 +5,7 @@ from lib.gol import *
 
 loop = True
 
-r = Render()
+r = Render(x=50,y=50)
 
 filename = 'games/{}/{}.json'
 
