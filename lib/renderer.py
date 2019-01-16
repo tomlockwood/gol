@@ -1,5 +1,5 @@
 import pygame
-from game import *
+from lib.game import *
 
 class Render:
 
@@ -12,6 +12,8 @@ class Render:
     self.h = infoObject.current_h
     self.grid_size()
     self.screen = pygame.display.set_mode((self.w, self.h),pygame.FULLSCREEN)
+    pygame.font.init()
+    self.pixel = pygame.font.SysFont('5x5 Pixel', 30)
     self.done = False
 
   def grid_size(self):
@@ -28,6 +30,7 @@ class Render:
           pygame.Rect((x*self.cell_edge)+self.grid_start_x-100, (y*self.cell_edge)+100, self.cell_edge, self.cell_edge))
 
   def play(self):
+    text = self.pixel.render('Hi', False,(255,255,255))
     self.game = Game(grid=Grid(x=50,y=50),rules=Rules())
     # Determine window size, set up the grid based on the game
     while not self.done:
@@ -39,8 +42,6 @@ class Render:
             self.game = Game(grid=Grid(x=50,y=50),rules=Rules())
             self.game.random_grid()
       self.generate_grid()
+      self.screen.blit(text,(0,0))
       pygame.display.flip()
       self.game.tick()
-
-r = Render()
-r.play()

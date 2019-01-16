@@ -1,10 +1,10 @@
 import random
 import time
 import json
-from rule import *
-from rules import *
-from grid import *
-from game import *
+from lib.rule import *
+from lib.rules import *
+from lib.grid import *
+from lib.game import *
 
 def load_rules(file=None,json_game=None):
   if file != None:

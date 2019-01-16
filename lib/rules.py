@@ -1,5 +1,5 @@
 import random
-from rule import *
+from lib.rule import *
 
 class Rules:
   def __init__(self,**kwargs):
