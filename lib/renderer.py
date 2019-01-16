@@ -15,8 +15,8 @@ class Render:
     self.grid_size()
     self.screen = pygame.display.set_mode((self.w, self.h),pygame.FULLSCREEN)
     pygame.font.init()
-    self.pixel = pygame.freetype.Font(None, 30)
-    #self.pixel = pygame.freetype.Font('assets/pixel.ttf', 30)
+    #self.pixel = pygame.freetype.Font(None, 30)
+    self.pixel = pygame.freetype.Font('assets/slkscr.ttf', 30)
     self.done = False
 
   def grid_size(self):
@@ -24,13 +24,14 @@ class Render:
     cell_height_length = self.cell_edge * self.y
     cell_dist_from_mid = int(cell_height_length/2)
     self.grid_start_x = self.h - cell_dist_from_mid
+    self.grid_start_y = self.w - cell_dist_from_mid
     
   def generate_grid(self):
     for x in range(self.x):
       for y in range(self.y):
         colour = self.game.state_rule(x,y).colour
         pygame.draw.rect(self.screen, (int(colour['r']), int(colour['g']), int(colour['b'])), \
-          pygame.Rect((x*self.cell_edge)+self.grid_start_x-100, (y*self.cell_edge)+100, self.cell_edge, self.cell_edge))
+          pygame.Rect((x*self.cell_edge)+self.grid_start_x-200, (y*self.cell_edge)+100, self.cell_edge, self.cell_edge))
 
   def generate_text(self,input,x=0,y=0):
     for idx, line in enumerate(input):
