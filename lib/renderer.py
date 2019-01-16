@@ -50,6 +50,7 @@ class Render:
             return 'Move'
       self.screen.fill((0,0,0))
       out = []
+      out.append(str(self.game.ticks))
       self.generate_grid()
       for k in self.game.metadata:
         out.append('{}:   {}'.format(k,self.game.metadata[k]))
