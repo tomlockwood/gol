@@ -38,7 +38,7 @@ class Render:
       text, rect = self.pixel.render(line, (255,255,255))
       self.screen.blit(text,(x,y+(30*idx)))
 
-  def play(self):
+  def play(self,ticks=0):
     # Determine window size, set up the grid based on the game
     clock = pygame.time.Clock()
     while not self.done:
@@ -50,6 +50,9 @@ class Render:
             return 'Next'
           elif event.key == pygame.K_k:
             return 'Move'
+
+      if self.game.ticks > ticks and ticks != 0:
+        return 'TimeOut'
       self.screen.fill((0,0,0))
       out = []
       out.append('Tick:   ' + str(self.game.ticks))
