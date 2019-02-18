@@ -1,6 +1,5 @@
 import random
 import numpy
-# np.uint8 - 0 to 255
 
 class Grid:
   def __init__(self,**kwargs):

@@ -16,7 +16,7 @@ class Render:
     self.screen = pygame.display.set_mode((self.w, self.h),pygame.FULLSCREEN)
     pygame.font.init()
     #self.pixel = pygame.freetype.Font(None, 30)
-    self.pixel = pygame.freetype.Font('assets/slkscr.ttf', 30)
+    self.font = pygame.freetype.Font('assets/slkscr.ttf', 30)
     self.done = False
 
   def grid_size(self):
@@ -59,7 +59,7 @@ class Render:
   def clear(self):
     self.screen.fill((0,0,0))
 
-  def play(self):
+  def play(self,ticks=0):
     # Determine window size, set up the grid based on the game
     clock = pygame.time.Clock()
     while not self.done:
@@ -71,6 +71,9 @@ class Render:
             return 'Next'
           elif event.key == pygame.K_k:
             return 'Move'
+
+      if self.game.ticks > ticks and ticks != 0:
+        return 'TimeOut'
       self.screen.fill((0,0,0))
       out = []
       out.append('Tick:   ' + str(self.game.ticks))
