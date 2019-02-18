@@ -56,9 +56,6 @@ class Render:
       self.generate_text(text,x,y,size)
       pygame.display.flip()
 
-  def display(self):
-    pygame.display.flip()
-
   def clear(self):
     self.screen.fill((0,0,0))
 
