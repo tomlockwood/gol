@@ -15,7 +15,6 @@ class Render:
     self.grid_size()
     self.screen = pygame.display.set_mode((self.w, self.h),pygame.FULLSCREEN)
     pygame.font.init()
-    #self.pixel = pygame.freetype.Font(None, 30)
     self.font = pygame.freetype.Font('assets/slkscr.ttf', 30)
     self.done = False
 
@@ -37,9 +36,9 @@ class Render:
         self.draw_cell(int(colour['r']), int(colour['g']), int(colour['b']),x,y)
 
   def generate_text(self,input,x=0,y=0,font_size=30):
-    self.pixel.size = font_size
+    self.font.size = font_size
     for idx, line in enumerate(input):
-      text, rect = self.pixel.render(line, (255,255,255))
+      text, rect = self.font.render(line, (255,255,255))
       self.screen.blit(text,(x,y+(font_size*idx)))
 
   def display_slide(self,text,size,x,y):

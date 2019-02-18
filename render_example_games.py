@@ -18,7 +18,7 @@ if __name__ == '__main__':
     if os.path.isdir('games/interesting/' + game_file): continue
     g = init('games/interesting/' + game_file)
     r.game = g
-    out = r.play()
+    out = r.play(100)
     if out == 'Done': break
     if out == 'Move':
       os.rename('games/interesting/' + game_file, 'games/interesting/shteve/' + game_file)
