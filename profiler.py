@@ -1,4 +1,5 @@
 from lib.gol import *
+from lib.renderer import *
 import cProfile
 import pstats
 import io
@@ -14,9 +15,7 @@ def init(filename):
 
   return g
 
-if __name__ == '__main__':
-  last_commit = subprocess.check_output(["git", "describe","--always"]).strip().decode()
-  hostname = socket.gethostname()
+def glider_test(last_commit,hostname):
   g = init('examples/shteve/gliderserrywhere.json')
   pr = cProfile.Profile()
   pr.enable()
@@ -25,5 +24,11 @@ if __name__ == '__main__':
   s = io.StringIO()
   ps = pstats.Stats(pr,stream=s).sort_stats('tottime')
   ps.print_stats()
-  with open('performance/{}-{}-{}.txt'.format(datetime.now().isoformat(),last_commit,hostname),'w+') as f:
+  with open('performance/gliders_unrendered/{}-{}-{}.txt'.format(datetime.now().isoformat(),last_commit,hostname),'w+') as f:
     f.write(s.getvalue())
+
+if __name__ == '__main__':
+  last_commit = subprocess.check_output(["git", "describe","--always"]).strip().decode()
+  hostname = socket.gethostname()
+
+  glider_test(last_commit,hostname)
