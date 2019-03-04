@@ -1,5 +1,5 @@
 from lib.gol import *
-
+from lib.renderer import *
 
 rules = Rules(rules=[
   Rule(alive=False,transitions=[0,0,0,1,0,0,0,0,0]),
@@ -12,6 +12,7 @@ g = Game(rules=rules,grid=grid)
 
 g.random_grid()
 
-for x in range(1000):
-  g.tick()
-  g.show()
+r = Render()
+
+r.game = g
+r.play()
