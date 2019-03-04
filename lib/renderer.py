@@ -13,7 +13,7 @@ class Render:
     self.w = infoObject.current_w
     self.h = infoObject.current_h
     self.grid_size()
-    self.screen = pygame.display.set_mode((self.w, self.h),pygame.FULLSCREEN)
+    self.screen = pygame.display.set_mode((self.w, self.h),pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.FULLSCREEN)
     pygame.font.init()
     self.font = pygame.freetype.Font('assets/slkscr.ttf', 30)
     self.done = False
