@@ -26,6 +26,11 @@ class Game:
     if reset_seed:
       self.seed = copy.deepcopy(self)
 
+  # Sets coordinate to new rule and updates surrounding cell alive status
+  # TODO: make work with n-rulestates and lambdas
+  def set_state(self,x,y,rule):
+    pass
+
   def get_state(self,x,y):
     return int(self.grid.state[x,y])
   
