@@ -10,6 +10,7 @@ class Game:
   def __init__(self,rules=Rules(),grid=Grid(),period_retention=0):
     self.rules = rules
     self.grid = grid
+    self.alive_counts = numpy.zeros([self.grid.x,self.grid.y],dtype=numpy.uint8)
     self.ticks = 0
     self.period_retention = period_retention
     if period_retention > 0:
@@ -18,35 +19,40 @@ class Game:
     self.seed = copy.deepcopy(self)
 
     self.metadata = {}
-  
-  def random_grid(self,reset_seed=True):
-    for x in range(self.grid.x):
-      for y in range(self.grid.y):
-        self.grid.state[x,y] = random.choice(range(self.rules.amount))
-    if reset_seed:
-      self.seed = copy.deepcopy(self)
 
   # Sets coordinate to new rule and updates surrounding cell alive status
   # TODO: make work with n-rulestates and lambdas
-  def set_state(self,x,y,rule):
-    pass
+  def set_state(self,x,y,rule_index,old_rule_alive=False):
+    rule_alive = self.rules.rules[rule_index].alive
+    if rule_alive == old_rule_alive: return
+    for x_relative in range(-1,2):
+      for y_relative in range(-1,2):
+        if (x_relative != 0 or y_relative != 0) \
+          and x+x_relative > -1 and x+x_relative < self.grid.x \
+          and y+y_relative > -1 and y+y_relative < self.grid.y:
+            if rule_alive:
+              self.alive_counts[x+x_relative,y+y_relative] += 1
+            else:
+              self.alive_counts[x+x_relative,y+y_relative] -= 1
 
   def get_state(self,x,y):
     return int(self.grid.state[x,y])
   
   def state_rule(self,x,y):
     return self.rules.rules[self.get_state(x,y)]
-
-  def find_alive(self,x,y):
-    alive = 0
-    for x_relative in range(-1,2):
-      for y_relative in range(-1,2):
-        if (x_relative != 0 or y_relative != 0) \
-          and x+x_relative > -1 and x+x_relative < self.grid.x \
-          and y+y_relative > -1 and y+y_relative < self.grid.y:
-          if self.state_rule(x+x_relative,y+y_relative).alive:
-            alive += 1
-    return alive
+  
+  def init_alives(self):
+    for x in range(self.grid.x):
+      for y in range(self.grid.y):
+        self.set_state(x,y,self.get_state(x,y))
+          
+  def random_grid(self,reset_seed=True):
+    for x in range(self.grid.x):
+      for y in range(self.grid.y):
+        self.grid.state[x,y] = random.choice(range(self.rules.amount))
+    self.init_alives()
+    if reset_seed:
+      self.seed = copy.deepcopy(self)
 
   def tick(self,amount=1):
     for i in range(amount):
@@ -54,8 +60,10 @@ class Game:
       self.next_state = numpy.zeros([self.grid.x,self.grid.y],dtype=numpy.uint8)
       for x in range(self.grid.x):
         for y in range(self.grid.y):
-          adjacent = self.find_alive(x,y)
-          self.next_state[x,y] = self.state_rule(x,y).transitions[adjacent]
+          current_rule = self.state_rule(x,y)
+          next_rule = current_rule.transitions[self.alive_counts[x,y]]
+          self.next_state[x,y] = next_rule
+          self.set_state(x,y,next_rule,current_rule.alive)
       self.grid.state = self.next_state
       if self.period_retention > 0:
         if len(self.grid_states) >= self.period_retention:

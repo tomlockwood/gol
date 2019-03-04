@@ -33,6 +33,7 @@ def load_game(file):
   grid = load_grid(json_game=json_game)
   ruleset = load_rules(json_game=json_game)
   game = Game(rules=ruleset,grid=grid)
+  game.init_alives()
   game.ticks = json_game.get('ticks',0)
   game.metadata = load_metadata(json_game=json_game)
 
