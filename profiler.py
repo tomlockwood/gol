@@ -15,7 +15,7 @@ def init(filename):
 
   return g
 
-def glider_test(last_commit,hostname):
+def gliders_unrendered_test(last_commit,hostname):
   g = init('examples/shteve/gliderserrywhere.json')
   pr = cProfile.Profile()
   pr.enable()
@@ -31,4 +31,4 @@ if __name__ == '__main__':
   last_commit = subprocess.check_output(["git", "describe","--always"]).strip().decode()
   hostname = socket.gethostname()
 
-  glider_test(last_commit,hostname)
+  gliders_unrendered_test(last_commit,hostname)
