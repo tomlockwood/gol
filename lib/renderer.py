@@ -83,4 +83,4 @@ class Render:
       self.generate_text(out)
       pygame.display.flip()
       self.game.tick()
-      clock.tick(30)
+      clock.tick()
