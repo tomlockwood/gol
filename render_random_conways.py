@@ -14,4 +14,4 @@ g.random_grid()
 
 for x in range(1000):
   g.tick()
-  g.show(0.02)
+  g.show()
