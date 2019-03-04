@@ -1,0 +1,15 @@
+         11256001 function calls in 5.067 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1500    2.233    0.001    5.067    0.003 /home/tom/gol/lib/game.py:57(tick)
+  3750000    1.057    0.000    1.057    0.000 /home/tom/gol/lib/game.py:38(get_state)
+  3750000    0.922    0.000    0.922    0.000 /home/tom/gol/lib/game.py:25(set_state)
+  3750000    0.849    0.000    1.905    0.000 /home/tom/gol/lib/game.py:41(state_rule)
+     1500    0.004    0.000    0.004    0.000 {built-in method numpy.zeros}
+     1500    0.003    0.000    0.003    0.000 {built-in method numpy.array}
+     1500    0.001    0.000    0.004    0.000 /home/tom/.local/lib/python3.6/site-packages/numpy/lib/function_base.py:747(copy)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
