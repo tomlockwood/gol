@@ -26,6 +26,8 @@ class Render:
     self.grid_start_y = self.w - cell_dist_from_mid
 
   def draw_cell(self,r,g,b,x,y):
+    # TODO: don't create rects everytime, just access them from an array
+    # TODO: only update changed rectangles (maybe read from array flag?)
     pygame.draw.rect(self.screen, (r,g,b), \
       pygame.Rect((x*self.cell_edge)+self.grid_start_x-200, (y*self.cell_edge)+100, self.cell_edge, self.cell_edge))
 
