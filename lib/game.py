@@ -54,23 +54,22 @@ class Game:
     if reset_seed:
       self.seed = copy.deepcopy(self)
 
-  def tick(self,amount=1):
-    for i in range(amount):
-      # TODO - Needs to be adjusted more for the numpy usage
-      self.next_state = numpy.zeros([self.grid.x,self.grid.y],dtype=numpy.uint8)
-      self.last_alives = numpy.copy(self.alive_counts)
-      for x in range(self.grid.x):
-        for y in range(self.grid.y):
-          current_rule = self.state_rule(x,y)
-          next_rule = current_rule.transitions[self.last_alives[x,y]]
-          self.next_state[x,y] = next_rule
-          self.set_state(x,y,next_rule,current_rule.alive)
-      self.grid.state = self.next_state
-      if self.period_retention > 0:
-        if len(self.grid_states) >= self.period_retention:
-          self.grid_states.pop(0)
-        self.grid_states.append(self.grid.state)
-    self.ticks += amount
+  def tick(self):
+    # TODO - Needs to be adjusted more for the numpy usage
+    self.next_state = numpy.zeros([self.grid.x,self.grid.y],dtype=numpy.uint8)
+    self.last_alives = numpy.copy(self.alive_counts)
+    for x in range(self.grid.x):
+      for y in range(self.grid.y):
+        current_rule = self.state_rule(x,y)
+        next_rule = current_rule.transitions[self.last_alives[x,y]]
+        self.next_state[x,y] = next_rule
+        self.set_state(x,y,next_rule,current_rule.alive)
+    self.grid.state = self.next_state
+    if self.period_retention > 0:
+      if len(self.grid_states) >= self.period_retention:
+        self.grid_states.pop(0)
+      self.grid_states.append(self.grid.state)
+    self.ticks += 1
   
   @property
   def periodic(self):
