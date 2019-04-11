@@ -13,7 +13,7 @@ class Render:
     self.w = infoObject.current_w
     self.h = infoObject.current_h
     self.grid_size()
-    self.screen = pygame.display.set_mode((self.w, self.h),pygame.FULLSCREEN)
+    self.screen = pygame.display.set_mode((self.w, self.h),pygame.HWSURFACE|pygame.DOUBLEBUF|pygame.FULLSCREEN)
     pygame.font.init()
     self.font = pygame.freetype.Font('assets/slkscr.ttf', 30)
     self.done = False
@@ -26,6 +26,8 @@ class Render:
     self.grid_start_y = self.w - cell_dist_from_mid
 
   def draw_cell(self,r,g,b,x,y):
+    # TODO: don't create rects everytime, just access them from an array
+    # TODO: only update changed rectangles (maybe read from array flag?)
     pygame.draw.rect(self.screen, (r,g,b), \
       pygame.Rect((x*self.cell_edge)+self.grid_start_x-200, (y*self.cell_edge)+100, self.cell_edge, self.cell_edge))
 
@@ -83,4 +85,4 @@ class Render:
       self.generate_text(out)
       pygame.display.flip()
       self.game.tick()
-      clock.tick(30)
+      clock.tick()

@@ -1,0 +1,30 @@
+         26329045 function calls in 46.571 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1501   16.751    0.011   16.751    0.011 {built-in method pygame.display.flip}
+  3752500   10.185    0.000   10.185    0.000 {built-in method pygame.draw.rect}
+     1501    5.328    0.004    5.328    0.004 {method 'fill' of 'pygame.Surface' objects}
+     1501    3.337    0.002   18.263    0.012 /home/tom/gol/lib/renderer.py:32(generate_grid)
+  7505000    2.477    0.000    2.477    0.000 /home/tom/gol/lib/game.py:38(get_state)
+  3752500    2.412    0.000   12.597    0.000 /home/tom/gol/lib/renderer.py:28(draw_cell)
+     1501    2.241    0.001    5.252    0.003 /home/tom/gol/lib/game.py:57(tick)
+  7505000    1.817    0.000    4.294    0.000 /home/tom/gol/lib/game.py:41(state_rule)
+  3752500    1.012    0.000    1.012    0.000 /home/tom/gol/lib/game.py:25(set_state)
+    12008    0.667    0.000    0.667    0.000 {method 'blit' of 'pygame.Surface' objects}
+    12008    0.216    0.000    0.216    0.000 {method 'render' of '_freetype.Font' objects}
+        1    0.046    0.046   46.571   46.571 /home/tom/gol/lib/renderer.py:61(play)
+     1501    0.024    0.000    0.907    0.001 /home/tom/gol/lib/renderer.py:38(generate_text)
+     1501    0.021    0.000    0.021    0.000 {built-in method numpy.zeros}
+     1502    0.012    0.000    0.012    0.000 {built-in method pygame.event.get}
+     1501    0.011    0.000    0.011    0.000 {built-in method numpy.array}
+     9006    0.008    0.000    0.008    0.000 {method 'format' of 'str' objects}
+     1501    0.002    0.000    0.013    0.000 /home/tom/.local/lib/python3.6/site-packages/numpy/lib/function_base.py:747(copy)
+     1501    0.002    0.000    0.002    0.000 {method 'tick' of 'Clock' objects}
+    12008    0.002    0.000    0.002    0.000 {method 'append' of 'list' objects}
+     1501    0.001    0.000    0.001    0.000 {method 'get_fps' of 'Clock' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method pygame.time.Clock}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
